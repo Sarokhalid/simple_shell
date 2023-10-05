@@ -66,3 +66,14 @@ int char_to_stder(char j)
 		buffer[o++] = j;
 	return (1);
 }
+
+void err_msg(make_t *make, char *errty)
+{
+	str_input(make->pro_name);
+	str_input(": ");
+	base10(make->err_count, STDERR_FILENO);
+	str_input(": ");
+	str_input(make->argv[0]);
+	str_input(": ");
+	str_input(errty);
+}

@@ -26,31 +26,34 @@ typedef struct Node
 	char cmd[MAX_CMD_LEN];
 	struct Node *next;
 } Node;
+
 Node *head = NULL;
 typedef struct linked_list
 {
 	int nfield;
-	char *string;
+	char *str;
 	struct linked_list *next;
 } linked_t;
 typedef struct passing
 {
-	char *arg;
-	char **argv;
+	char *str_getline;
+	char **arr_getline;
 	char *str_path;
 	int argc;
 	int err_exit;
 	unsigned int err_count;
 	int line_flag;
 	char *pro_name;
-	linked_t enviro;
+	linked_t env;
 	linked_t his;
 	linked_t *alias;
-	char **modi;
+	char **environ;
 	int status;
+	int envir_chan;
 	char command_buf;
 	int rfield;
 	int hisc;
+	int command_type;
 } make_t;
 int str_to_int(char *d);
 int exit_shell(make_t *make);
@@ -63,13 +66,13 @@ int check_alpha(int z);
 int atoi_2(char *str);
 int check_delim(char j, char *str_delim);
 int shell_intrac(make_t *make);
-/**int str_len(char *str);
+int str_len(char *str);
 int str_cmp(char *t1, char *t2);
 char *starting(const char *str_sea, const char *sub_str);
 char *str_conc(char *dest, char *sour);
 char *str_copy(char *dest, char *sour);
 char *str_duplic(const char *str);
-void print_str(char *str);**/
+void print_str(char *str);
 void handle_sigint(int signum);void handle_sigint(int signum);
 void handle_sigtstp(int signum);
 void insert_cmd(const char *cmd);
