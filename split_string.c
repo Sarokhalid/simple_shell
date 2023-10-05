@@ -7,7 +7,7 @@ int check_delim(char j, char *str_delim)
 	return (0);
 }
 
-char **strtow(char *st, char *dilm)
+char **str_tow(char *st, char *dilm)
 {
 	char **s;
 	int a, b, c, f, w = 0;
@@ -42,7 +42,7 @@ char **strtow(char *st, char *dilm)
 	s[b] = NULL;
 	return (s);
 }
-char **strtowb(char *st, char dilm)
+char **str_dlm2(char *st, char dilm)
 {
 	char **s;
 	int a, b, c, f, w = 0;

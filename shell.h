@@ -94,6 +94,6 @@ int str_rep(char **o, char *n);
 void str_free(char **s);
 int poin_free(void **q);
 linked_t *node_prefix(linked_t *p_head, char *mat, char nch);
-char **strtowb(char *st, char dilm);
-char **strtow(char *st, char *dilm);
+char **str_dlm2(char *st, char dilm);
+char **str_tow(char *st, char *dilm);
 
