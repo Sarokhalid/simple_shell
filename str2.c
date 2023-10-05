@@ -9,6 +9,7 @@ int str_len(char *str)
 		k++;
 	return (k);
 }
+
 int str_cmp(char *t1, char *t2)
 {
 	while (*t1 && *t2)
@@ -23,6 +24,7 @@ int str_cmp(char *t1, char *t2)
 	else
 		return ((*t1 < *t2 ? -1: 1));
 }
+
 char *str_duplic(const char *str)
 {
 	int l = 0;

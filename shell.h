@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <pwd.h>
+#include <stdlib.h>
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
@@ -20,7 +21,7 @@
 #define HISTORY_COUNT 10
 #define HISTPORY_FILE "history.txt"
 #define CONVERT_LOWERCASE 1
-#define CONVERT_NSIGNED 2
+#define CONVERT_UNSIGNED 2
 typedef struct Node
 {
 	char cmd[MAX_CMD_LEN];
@@ -80,3 +81,16 @@ void clear_history(void);
 void write_history(void);
 void read_history(void);void read_history(void);
 void execute_cmd(const char *cmd);
+char *conv_func(long int nu, int b, int f);
+char* chr_in_str(char *k, char t);
+void rm_comm(char *buffer);
+void free_linked(linked_t **adr_poin);
+void set_make(make_t *info, char **ar_v);
+void free_make(make_t *make, int right);
+int rep_ali(make_t *make);
+int rep_var(make_t *make);
+void init_make_t(make_t *make);
+int str_rep(char **o, char *n);
+void str_free(char **s);
+int poin_free(void **q);
+linked_t *node_prefix(linked_t *p_head, char *mat, char nch);

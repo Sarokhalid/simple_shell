@@ -9,8 +9,10 @@ void str_input(char *string)
 	{
 		char_to_stder(string[o]);
 		o++;
-	}
+	};
+
 }
+
 int char_to_stder(char j)
 {
 	static int o;
@@ -25,6 +27,7 @@ int char_to_stder(char j)
 		buffer[o++] = j;
 	return (1);
 }
+
 void err_msg(make_t *make, char *errty)
 {
 	str_input(make->pro_name);
