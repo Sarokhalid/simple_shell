@@ -27,7 +27,7 @@ typedef struct Node
 	struct Node *next;
 } Node;
 
-Node *head = NULL;
+/**Node *head = NULL;**/
 typedef struct linked_list
 {
 	int nfield;
