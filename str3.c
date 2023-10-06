@@ -1,4 +1,4 @@
-include "shell.h"
+#include "shell.h"
 void str_input(char *string)
 {
 	int o = 0;
@@ -28,7 +28,7 @@ int char_to_stder(char j)
 	return (1);
 }
 
-void err_msg(make_t *make, char *errty)
+/**void err_msg(make_t *make, char *errty)
 {
 	str_input(make->pro_name);
 	str_input(": ");
@@ -37,7 +37,7 @@ void err_msg(make_t *make, char *errty)
 	str_input(make->arr_getline[0]);
 	str_input(": ");
 	str_input(errty);
-}
+}**/
 int char_to_stdout(char j)
 {
 	static int o;

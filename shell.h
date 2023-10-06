@@ -14,6 +14,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include <stdlib.h>
+#define BUFFER_SIZE 1024
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
@@ -96,4 +97,6 @@ int poin_free(void **q);
 linked_t *node_prefix(linked_t *p_head, char *mat, char nch);**/
 char **str_dlm2(char *st, char dilm);
 char **str_tow(char *st, char *dilm);
+char *rea(char *p, size_t s);
+char *get();
 
