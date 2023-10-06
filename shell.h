@@ -30,7 +30,7 @@ typedef struct Node
 } Node;
 
 /**Node *head = NULL;**/
-typedef struct linked_list
+/**typedef struct linked_list
 {
 	int nfield;
 	char *str;
@@ -56,12 +56,12 @@ typedef struct passing
 	int rfield;
 	int hisc;
 	int command_type;
-} make_t;
+} make_t;**/
 int str_to_int(char *d);
 /**int exit_shell(make_t *make);**/
 void str_input(char *string);
 int char_to_stder(char j);
-void err_msg(make_t *make, char *errty);
+/*d err_msg(make_t *make, char *errty);**/
 int base10(int inp, int filed);
 int char_to_stdout(char j);
 int check_alpha(int z);
