@@ -33,4 +33,5 @@ int str_to_int(char *d)
 		p_head = p_head->nch;
 	}
 	return (NULL);
-}**/
+}*:x
+

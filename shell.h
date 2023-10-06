@@ -57,7 +57,7 @@ typedef struct passing
 	int command_type;
 } make_t;
 int str_to_int(char *d);
-int exit_shell(make_t *make);
+/**int exit_shell(make_t *make);**/
 void str_input(char *string);
 int char_to_stder(char j);
 void err_msg(make_t *make, char *errty);
@@ -66,7 +66,7 @@ int char_to_stdout(char j);
 int check_alpha(int z);
 int atoi_2(char *str);
 int check_delim(char j, char *str_delim);
-int shell_intrac(make_t *make);
+/**int shell_intrac(make_t *make);**/
 int str_len(char *str);
 int str_cmp(char *t1, char *t2);
 char *starting(const char *str_sea, const char *sub_str);
@@ -79,9 +79,9 @@ void handle_sigtstp(int signum);
 void insert_cmd(const char *cmd);
 void clear_history(void);
 void write_history(void);
-void read_history(void);void read_history(void);
+void read_history(void);
 void execute_cmd(const char *cmd);
-char *conv_func(long int nu, int b, int f);
+/**char *conv_func(long int nu, int b, int f);
 char* chr_in_str(char *k, char t);
 void rm_comm(char *buffer);
 void free_linked(linked_t **adr_poin);
@@ -93,7 +93,7 @@ void init_make_t(make_t *make);
 int str_rep(char **o, char *n);
 void str_free(char **s);
 int poin_free(void **q);
-linked_t *node_prefix(linked_t *p_head, char *mat, char nch);
+linked_t *node_prefix(linked_t *p_head, char *mat, char nch);**/
 char **str_dlm2(char *st, char dilm);
 char **str_tow(char *st, char *dilm);
 

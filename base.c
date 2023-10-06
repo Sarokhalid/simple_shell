@@ -25,6 +25,7 @@ int base10(int inp, int filed)
 		}
 		curr %= y;
 	}
+
 	__putchar('0' + curr);
 	t++;
 	return (t);
