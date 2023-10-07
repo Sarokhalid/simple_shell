@@ -105,5 +105,9 @@ char **alt_strtok(const char *i, const char *d, int *nk);
 void free_strtok(char **ts, int nk);
 void cus_exit(char *st);
 int  _atoi(const char *s);
-
-
+int unsetenv(const char *name);
+int setenv(const char *name, const char *value, int overwrite);
+char *rea(char *p, size_t s);
+int  _strncmp(const char *s, const char *d, size_t f);
+char _getenv(const char *name);
+void ex_comm(const char *comm);
