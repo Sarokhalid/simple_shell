@@ -23,6 +23,8 @@
 #define HISTPORY_FILE "history.txt"
 #define CONVERT_LOWERCASE 1
 #define CONVERT_UNSIGNED 2
+#define MAX_TOKENS 64
+#define TOKEN_DELIMITERS " \t\n"
 typedef struct Node
 {
 	char cmd[MAX_CMD_LEN];
@@ -68,12 +70,12 @@ int check_alpha(int z);
 int atoi_2(char *str);
 int check_delim(char j, char *str_delim);
 /**int shell_intrac(make_t *make);**/
-int str_len(char *str);
+/**int str_len(char *str);**/
 int str_cmp(char *t1, char *t2);
 char *starting(const char *str_sea, const char *sub_str);
 char *str_conc(char *dest, char *sour);
 char *str_copy(char *dest, char *sour);
-char *str_duplic(const char *str);
+/**char *str_duplic(const char *str);**/
 void print_str(char *str);
 void handle_sigint(int signum);void handle_sigint(int signum);
 void handle_sigtstp(int signum);
@@ -99,4 +101,9 @@ char **str_dlm2(char *st, char dilm);
 char **str_tow(char *st, char *dilm);
 char *rea(char *p, size_t s);
 char *get();
+char **alt_strtok(const char *i, const char *d, int *nk);
+void free_strtok(char **ts, int nk);
+void cus_exit(char *st);
+int  _atoi(const char *s);
+
 
