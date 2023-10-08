@@ -46,7 +46,11 @@ char *get();
 void cus_exit(char *st);
 int  _atoi(const char *s);
 char *rea(char *p, size_t s);
-int  _strncmp(const char *s, const char *d, size_t f);
-char _getenv(const char *name);
+
 void ex_comm(const char *comm);
 void sep(const char *c);
+void op(const char *c);
+char *rep(char *c);
+char *_getenv(const char *name);
+size_t _strlen(const char *s);
+int _strncmp(const char *s, const char *ss, size_t n);
