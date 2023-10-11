@@ -95,7 +95,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   `check_command_length`: Checks if a command exceeds the maximum allowed length.
 
 
-#### I - String operations (string_operations.c):
+I - String operations (string_operations.c):
+=============================================
 1.  **_strlen**:
 
     -   Description: This function calculates the length of a string by iterating through the characters until it reaches the null terminator.
@@ -129,7 +130,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   Return Value:
         -   `char *` - A pointer to the concatenated string.
 
-#### II - Signal handling (signal_handling.c):
+II - Signal handling (signal_handling.c):
+==========================================
 1.  **handle_sigint**:
 
     -   Description: Handles the SIGINT signal, which is triggered when the user presses Ctrl+C. It simply writes a newline and the shell prompt to stdout.
@@ -148,7 +150,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   Parameters: None.
     -   Return Value: None.
 
-#### III - Command history (command_history.c):
+III - Command history (command_history.c):
+=========================================
 1.  **insert_cmd**:
 
     -   Description: Inserts a command into the command history data structure. If the history count exceeds the specified limit, the oldest command is removed.
@@ -180,7 +183,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   Parameters: None.
     -   Return Value: None.
 
-#### IV - Command execution (command_execution.c):
+IV - Command execution (command_execution.c):
+=============================================
 1.  **execute_cd_command**:
 
     -   Description: Handles the "cd" command, which is used to change directories. It checks if an argument is provided and attempts to change the directory using the chdir function.
@@ -210,7 +214,8 @@ The header file declares various function prototypes, indicating the functions' 
         -   `char *argv[]` - An array of command arguments.
     -   Return Value: None.
 
-#### V - Interactive shell operations (interactive_shell_operations.c):
+V - Interactive shell operations (interactive_shell_operations.c):
+==================================================================
 1. **print_prompt**:
 
     -   Description: Prints the shell prompt, which typically includes the username and current working directory.
@@ -250,7 +255,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   Return Value: None.
 
 
-#### VI - File-based command execution (file_based_execution.c):
+VI - File-based command execution (file_based_execution.c):
+==========================================================
 1. **execute_commands_from_file**:
 
     -   Description: Reads and executes commands from files. It opens each specified file, reads the commands, inserts them into the command history, and executes them.
@@ -261,7 +267,8 @@ The header file declares various function prototypes, indicating the functions' 
         -   `size_t len` - The length of the command buffer.
     -   Return Value: None.
     
-#### VII - Main function (main.c):
+VII - Main function (main.c):
+=============================
 1. **main**:
 
     -   Description: The main function of the shell. It sets up signal handling, checks the history file, reads history, and then enters interactive or non-interactive mode based on command-line arguments. In the end, it writes history to the file, clears the history, and frees allocated memory.
@@ -271,7 +278,8 @@ The header file declares various function prototypes, indicating the functions' 
     -   Return Value:
         -   `int` - The exit status of the program (0 for success, non-zero for failure).
     
-#### VIII - Environment variable operations (environment_variable_operations.c):
+VIII - Environment variable operations (environment_variable_operations.c):
+==========================================================================
 1. **_getenv**:
 
     -   Description: Retrieves the value of an environment variable by searching through the `environ` array. It matches the variable name and returns the corresponding value.
