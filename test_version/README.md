@@ -291,7 +291,8 @@ VIII - Environment variable operations (environment_variable_operations.c):
 
 
 ---------------------------------------------------------------------------------------------------------
-### Workflow
+Workflow
+========
 
 Here's the overall workflow of this shell program:
 
