@@ -6,8 +6,96 @@ The shell program is a command-line interpreter that allows users to execute com
 
 ### Code Structure:
 
-### Description of each function in this code accourding to C files:
-##### I - String operations (string_operations.c):
+#### Description of each function in this code accourding to C files:
+
+Shell Header File (shell.h)
+===============================
+
+Overview
+--------
+
+This header file, defines data structures, function prototypes, and constants used in a C program representing a basic shell.
+
+Included Libraries
+------------------
+
+The header file includes several standard C libraries, each of which plays a crucial role in the functionality of the shell program:
+
+-   `stdio.h`: For standard input/output operations.
+-   `stdlib.h`: For memory allocation and deallocation functions.
+-   `string.h`: For string manipulation functions.
+-   `signal.h`: For handling signals such as SIGINT and SIGTSTP.
+-   `sys/types.h`: For data types used in system calls.
+-   `sys/wait.h`: For process and status information.
+-   `fcntl.h`: For file control options (used for working with files).
+-   `unistd.h`: For POSIX system calls and constants.
+-   `limits.h`: For platform-independent constant values.
+-   `pwd.h`: For retrieving user information.
+-   `errno.h`: For handling errors and reporting error codes.
+
+Constants
+---------
+
+The header file defines several constants, which are used throughout the shell program to control its behavior and maintain specific limits:
+
+-   `MAX_CMD_LEN`: Specifies the maximum length of a command that the shell can handle.
+-   `HISTORY_COUNT`: Defines the maximum number of commands to store in the command history.
+-   `HISTORY_FILE`: Specifies the name of the history file where command history is stored.
+
+Data Structures
+---------------
+
+Two main data structures are defined in the header file to manage the command history:
+
+1.  `Node` Structure:
+
+    -   A structure representing a node in a linked list. Each node stores a command and a pointer to the next node.
+2.  `shell_data` Structure:
+
+    -   A structure that holds the head of the linked list, representing the command history.
+
+Function Prototypes
+-------------------
+
+The header file declares various function prototypes, indicating the functions' names, parameters, and their purposes. These functions are the building blocks of the shell program:
+
+-   String Manipulation Functions:
+
+    -   `_strlen`: Calculates the length of a string.
+    -   `_strncmp`: Compares two strings up to a specified number of characters.
+    -   `_strcpy`: Copies a string from source to destination.
+    -   `_strcat`: Concatenates two strings.
+-   Signal Handling Functions:
+
+    -   `handle_sigint`: Handles the SIGINT signal (Ctrl+C).
+    -   `handle_sigtstp`: Handles the SIGTSTP signal (Ctrl+Z).
+    -   `handle_signals`: Sets up signal handlers for SIGINT and SIGTSTP.
+-   Command History Management Functions:
+
+    -   `insert_cmd`: Inserts a command into the command history.
+    -   `clear_history`: Clears the entire command history.
+    -   `write_history`: Writes the command history to a file.
+    -   `read_history`: Reads the command history from a file.
+-   Command Execution Functions:
+
+    -   `execute_cd_command`: Handles the "cd" command for changing directories.
+    -   `execute_other_command`: Executes a command in a child process.
+    -   `execute_command_in_path`: Executes a command by searching in directories listed in the PATH environment variable.
+    -   `print_error_message`: Prints an error message when a command is not found.
+    -   `execute_cmd`: Parses and executes a given command.
+-   File and Input/Output Functions:
+
+    -   `check_history_file`: Checks the existence of the history file and creates it if it doesn't exist.
+    -   `execute_commands_from_file`: Reads and executes commands from files.
+    -   `execute_commands_interactively`: Handles interactive command execution.
+-   User Interface Functions:
+
+    -   `print_prompt`: Displays the shell prompt.
+    -   `read_command`: Reads a command from the user.
+    -   `check_command_length`: Checks if a command exceeds the maximum allowed length.
+
+
+#### I - String operations (string_operations.c):
 1.  **_strlen**:
 
     -   Description: This function calculates the length of a string by iterating through the characters until it reaches the null terminator.
@@ -41,7 +129,7 @@ The shell program is a command-line interpreter that allows users to execute com
     -   Return Value:
         -   `char *` - A pointer to the concatenated string.
 
-##### II - Signal handling (signal_handling.c):
+#### II - Signal handling (signal_handling.c):
 1.  **handle_sigint**:
 
     -   Description: Handles the SIGINT signal, which is triggered when the user presses Ctrl+C. It simply writes a newline and the shell prompt to stdout.
@@ -60,7 +148,7 @@ The shell program is a command-line interpreter that allows users to execute com
     -   Parameters: None.
     -   Return Value: None.
 
-##### III - Command history (command_history.c):
+#### III - Command history (command_history.c):
 1.  **insert_cmd**:
 
     -   Description: Inserts a command into the command history data structure. If the history count exceeds the specified limit, the oldest command is removed.
@@ -92,7 +180,7 @@ The shell program is a command-line interpreter that allows users to execute com
     -   Parameters: None.
     -   Return Value: None.
 
-##### IV - Command execution (command_execution.c):
+#### IV - Command execution (command_execution.c):
 1.  **execute_cd_command**:
 
     -   Description: Handles the "cd" command, which is used to change directories. It checks if an argument is provided and attempts to change the directory using the chdir function.
@@ -122,7 +210,7 @@ The shell program is a command-line interpreter that allows users to execute com
         -   `char *argv[]` - An array of command arguments.
     -   Return Value: None.
 
-##### V - Interactive shell operations (interactive_shell_operations.c):
+#### V - Interactive shell operations (interactive_shell_operations.c):
 1. **print_prompt**:
 
     -   Description: Prints the shell prompt, which typically includes the username and current working directory.
@@ -162,7 +250,7 @@ The shell program is a command-line interpreter that allows users to execute com
     -   Return Value: None.
 
 
-##### VI - File-based command execution (file_based_execution.c):
+#### VI - File-based command execution (file_based_execution.c):
 1. **execute_commands_from_file**:
 
     -   Description: Reads and executes commands from files. It opens each specified file, reads the commands, inserts them into the command history, and executes them.
@@ -173,7 +261,7 @@ The shell program is a command-line interpreter that allows users to execute com
         -   `size_t len` - The length of the command buffer.
     -   Return Value: None.
     
-##### VII - Main function (main.c):
+#### VII - Main function (main.c):
 1. **main**:
 
     -   Description: The main function of the shell. It sets up signal handling, checks the history file, reads history, and then enters interactive or non-interactive mode based on command-line arguments. In the end, it writes history to the file, clears the history, and frees allocated memory.
@@ -183,7 +271,7 @@ The shell program is a command-line interpreter that allows users to execute com
     -   Return Value:
         -   `int` - The exit status of the program (0 for success, non-zero for failure).
     
-##### VIII - Environment variable operations (environment_variable_operations.c):
+#### VIII - Environment variable operations (environment_variable_operations.c):
 1. **_getenv**:
 
     -   Description: Retrieves the value of an environment variable by searching through the `environ` array. It matches the variable name and returns the corresponding value.
@@ -191,7 +279,6 @@ The shell program is a command-line interpreter that allows users to execute com
         -   `const char *name` - The name of the environment variable to retrieve.
     -   Return Value:
         -   `char *` - The value of the environment variable.
-
 
 
 
