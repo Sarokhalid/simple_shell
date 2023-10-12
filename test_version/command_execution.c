@@ -96,3 +96,18 @@ void execute_cmd(const char *cmd, char *argv[], shell_data *data)
 		execute_other_command(args, argv);
 	}
 }
+
+void free_commands(shell_data *data)
+{
+	Node *current = data->head;
+	Node *next;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+
+	data->head = NULL;
+}

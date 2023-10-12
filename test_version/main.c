@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 
 	write_history(&data);
 	clear_history(&data);
+	free_commands(&data);
 
 	free(cmd); /* free the memory allocated by getline() */
 

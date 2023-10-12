@@ -43,7 +43,8 @@ void check_command_length(char *cmd)
 	}
 }
 
-void execute_commands_interactively(char *cmd, size_t len, char *argv[], shell_data *data)
+void execute_commands_interactively(char *cmd, size_t len,
+		char *argv[], shell_data *data)
 {
 
 	data->head = NULL;
@@ -82,6 +83,7 @@ void execute_commands_interactively(char *cmd, size_t len, char *argv[], shell_d
 		insert_cmd(data, cmd);
 		execute_cmd(cmd, argv, data);
 	}
+	free(cmd);
 }
 
 void print_error_message(char *argv[], char *args[],

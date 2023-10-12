@@ -50,6 +50,7 @@ void check_command_length(char *cmd);
 void read_command(char **cmd, size_t *len);
 char *_strcat(char *dest, const char *src);
 void execute_other_command(char *args[], char *argv[]);
+void free_commands(shell_data *data);
 void execute_command_in_path(char *args[],
 		char *error_message, int *length);
 void print_error_message(char *argv[], char *args[],
