@@ -28,7 +28,7 @@ void execute_commands_from_file(int argc, char *argv[], char *cmd, size_t len)
 			}
 
 			insert_cmd(&data, cmd);
-			execute_cmd(cmd, argv);
+			execute_cmd(cmd, argv, &data);
 		}
 
 		/* Close the command file */

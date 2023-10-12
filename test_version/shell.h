@@ -44,7 +44,7 @@ char *_getenv(const char *name);
 size_t _strcpy(char *dest, const char *src);
 void handle_signals(void);
 void check_history_file(void);
-void execute_cmd(const char *cmd, char *argv[]);
+void execute_cmd(const char *cmd, char *argv[], shell_data *data);
 void print_prompt(char *username, char *cwd);
 void check_command_length(char *cmd);
 void read_command(char **cmd, size_t *len);
@@ -57,7 +57,7 @@ void print_error_message(char *argv[], char *args[],
 void execute_commands_from_file(int argc, char *argv[],
 		char *cmd, size_t len);
 void execute_commands_interactively(char *cmd, size_t len,
-		char *argv[]);
+		char *argv[], shell_data *data);
 
 
 #endif /* shell.h */

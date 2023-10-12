@@ -43,17 +43,21 @@ void check_command_length(char *cmd)
 	}
 }
 
-void execute_commands_interactively(char *cmd, size_t len, char *argv[])
+void execute_commands_interactively(char *cmd, size_t len, char *argv[], shell_data *data)
 {
-	shell_data data;
 
-	data.head = NULL;
+	data->head = NULL;
 
 	while (1)
 	{
 		char cwd[PATH_MAX];
-		struct passwd *pw = getpwuid(getuid());
-		char *username = pw->pw_name;
+		char *username = getenv("USER");
+
+		if (username == NULL)
+		{
+			perror("Failed to get username");
+			exit(EXIT_FAILURE);
+		}
 
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 		{
@@ -75,8 +79,8 @@ void execute_commands_interactively(char *cmd, size_t len, char *argv[])
 			break;
 		}
 
-		insert_cmd(&data, cmd);
-		execute_cmd(cmd, argv);
+		insert_cmd(data, cmd);
+		execute_cmd(cmd, argv, data);
 	}
 }
 

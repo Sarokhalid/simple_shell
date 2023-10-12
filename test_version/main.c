@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		/* Interactive mode: Read commands from the user */
-		execute_commands_interactively(cmd, len, argv);
+		execute_commands_interactively(cmd, len, argv, &data);
 	}
 
 	write_history(&data);
