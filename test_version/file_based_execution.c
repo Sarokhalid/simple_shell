@@ -18,10 +18,13 @@ void execute_commands_from_file(int argc, char *argv[], char *cmd, size_t len)
 			perror("Failed to open command file");
 			exit(EXIT_FAILURE);
 		}
-
 		/* Read commands from the file */
 		while ((nread = read(fd, cmd, MAX_CMD_LEN)) > 0)
 		{
+			if (_strlen(cmd) == 0) /* If NULL command, exit the shell */
+			{
+				exit(EXIT_SUCCESS);
+			}
 			if (cmd[nread - 1] == '\n')
 			{
 				cmd[nread - 1] = '\0';
@@ -30,7 +33,6 @@ void execute_commands_from_file(int argc, char *argv[], char *cmd, size_t len)
 			insert_cmd(&data, cmd);
 			execute_cmd(cmd, argv, &data);
 		}
-
 		/* Close the command file */
 		if (close(fd) == -1)
 		{

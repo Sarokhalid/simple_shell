@@ -13,7 +13,7 @@ int _strncmp(const char *s, const char *ss, size_t n)
 {
 	size_t y = 0;
 
-	while (s[y] != '\0' && ss[y] != '\0' && y < n)
+	while (s && ss && y < n && s[y] != '\0' && ss[y] != '\0')
 	{
 		if (s[y] != ss[y])
 			return (s[y] - ss[y]);
@@ -21,7 +21,7 @@ int _strncmp(const char *s, const char *ss, size_t n)
 	}
 	if (y == n)
 		return (0);
-	return (s[y] - ss[y]);
+	return ((s && ss) ? (s[y] - ss[y]) : 0);
 }
 
 size_t _strcpy(char *dest, const char *src)

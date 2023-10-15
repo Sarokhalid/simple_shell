@@ -72,14 +72,16 @@ void execute_commands_interactively(char *cmd, size_t len,
 		}
 
 		read_command(&cmd, &len);
-
+		if (_strlen(cmd) == 0) /* Add a check for NULL command */
+		{
+			continue; /* If NULL command, then continue to next iteration */
+		}
 		check_command_length(cmd);
 
 		if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
 		{
 			break;
 		}
-
 		insert_cmd(data, cmd);
 		execute_cmd(cmd, argv, data);
 	}

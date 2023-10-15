@@ -7,7 +7,11 @@ void execute_cd_command(char *args[])
 	if (args[1] == NULL)
 	{
 		error_msg = "cd: expected argument\n";
-		write(STDERR_FILENO, error_msg, strlen(error_msg));
+		if (write(STDERR_FILENO, error_msg, strlen(error_msg)) == -1)
+		{
+			perror("Write failed");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
@@ -74,7 +78,7 @@ void execute_other_command(char *args[], char *argv[])
 
 void execute_cmd(const char *cmd, char *argv[], shell_data *data)
 {
-	char *args[MAX_CMD_LEN];
+	char *args[MAX_CMD_LEN] = {NULL};
 	char *token = strtok((char *)cmd, " ");
 	int i = 0;
 
@@ -87,13 +91,16 @@ void execute_cmd(const char *cmd, char *argv[], shell_data *data)
 	write_history(data);
 
 	/* Add cd Command - Change Directories */
-	if (_strncmp(args[0], "cd", 2) == 0)
+	if (args[0])
 	{
-		execute_cd_command(args);
-	}
-	else
-	{
-		execute_other_command(args, argv);
+		if (_strncmp(args[0], "cd", 2) == 0)
+		{
+			execute_cd_command(args);
+		}
+		else
+		{
+			execute_other_command(args, argv);
+		}
 	}
 }
 
