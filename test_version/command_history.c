@@ -20,25 +20,30 @@ void insert_cmd(shell_data *data, const char *cmd)
 
 		int count = 0;
 
-		while (current->next != NULL)
+		while (current != NULL)
 		{
 			prev = current;
 			current = current->next;
 			count++;
-		}
 
-		if (count >= HISTORY_COUNT)
-		{
-			prev->next = NULL;
-			free(current);
+			if (count >= HISTORY_COUNT)
+			{
+				prev->next = NULL;
+				while (current != NULL)
+				{
+					prev = current;
+					current = current->next;
+					free(prev);
+				}
+				break;
+			}
 		}
 	}
-}
 
+}
 
 void clear_history(shell_data *data)
 {
-
 	while (data->head != NULL)
 	{
 		Node *temp = data->head;
@@ -47,7 +52,6 @@ void clear_history(shell_data *data)
 		free(temp);
 	}
 }
-
 void write_history(shell_data *data)
 {
 	Node *current;

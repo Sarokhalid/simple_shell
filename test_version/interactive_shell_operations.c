@@ -13,7 +13,7 @@ void read_command(char **cmd, size_t *len)
 	ssize_t read;
 
 	read = getline(cmd, len, stdin);
-	if ((read == -1))
+	if (read == -1)
 	{
 		if (errno != EINVAL && isatty(STDIN_FILENO))
 		{

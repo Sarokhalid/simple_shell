@@ -9,8 +9,6 @@ int main(int argc, char *argv[])
 	data.head = NULL;
 
 	handle_signals();
-	check_history_file();
-	read_history(&data);
 
 	if (argc > 1)
 	{
@@ -23,11 +21,8 @@ int main(int argc, char *argv[])
 		execute_commands_interactively(cmd, len, argv, &data);
 	}
 
-	write_history(&data);
-	clear_history(&data);
 	free_commands(&data);
-
 	free(cmd); /* free the memory allocated by getline() */
-
+	clear_history(&data);
 	return (0);
 }

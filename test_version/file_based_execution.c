@@ -36,5 +36,8 @@ void execute_commands_from_file(int argc, char *argv[], char *cmd, size_t len)
 		{
 			perror("Failed to close command file");
 		}
+		clear_history(&data);
+		free_commands(&data);
+		free(cmd);
 	}
 }
