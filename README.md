@@ -15,6 +15,20 @@ Julien Barbier - Project supervisor
 ALX Africa Software Engineering Program - Cohort 18
 
 ------------------------------------------------------
+
+Features
+--------
+
+-   Implements a subset of sh functionality
+-   Supports most basic shell commands like ls, echo, cat etc.
+-   Handles semicolon separated commands
+-   Supports comments using #
+-   Includes custom implementations of several C standard library functions like strlen, strcmp etc.
+-   Reads and executes commands from files
+-   Handles Ctrl-C (SIGINT) and Ctrl-Z (SIGTSTP) signals
+-   Saves command history to a file
+-   Prints prompts and errors to stderr
+
 Usage
 -----
 
