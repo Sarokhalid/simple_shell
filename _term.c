@@ -20,3 +20,13 @@ int _isspace(char c)
 	return (c == ' ' || c == '\t' || c == '\n' ||
 			c == '\v' || c == '\f' || c == '\r');
 }
+
+int _dup2(int oldfd, int newfd)
+{
+	if (oldfd == newfd)
+	{
+		return (newfd);
+	}
+	close(newfd);
+	return (fcntl(oldfd, F_DUPFD, newfd));
+}

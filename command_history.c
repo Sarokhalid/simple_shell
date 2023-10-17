@@ -39,7 +39,6 @@ void insert_cmd(shell_data *data, const char *cmd)
 			}
 		}
 	}
-
 }
 
 void clear_history(shell_data *data)
