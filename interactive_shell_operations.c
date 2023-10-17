@@ -2,9 +2,9 @@
 
 void print_prompt(char *username, char *cwd)
 {
-	write(STDOUT_FILENO, username, strlen(username));
+	write(STDOUT_FILENO, username, _strlen(username));
 	write(STDOUT_FILENO, "@", 1);
-	write(STDOUT_FILENO, cwd, strlen(cwd));
+	write(STDOUT_FILENO, cwd, _strlen(cwd));
 	write(STDOUT_FILENO, "$ ", 2);
 }
 
@@ -17,7 +17,8 @@ void read_command(char **cmd, size_t *len)
 	{
 		if (errno != EINVAL && isatty(STDIN_FILENO))
 		{
-			perror("Failed to read command");
+			perror("\n");
+			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -39,16 +40,14 @@ void check_command_length(char *cmd)
 		const char *error_msg;
 
 		error_msg = "Command exceeds maximum length\n";
-		write(STDERR_FILENO, error_msg, strlen(error_msg));
+		write(STDERR_FILENO, error_msg, _strlen(error_msg));
 	}
 }
 
 void execute_commands_interactively(char *cmd, size_t len,
 		char *argv[], shell_data *data)
 {
-
 	data->head = NULL;
-
 	while (1)
 	{
 		char cwd[PATH_MAX];
@@ -57,12 +56,14 @@ void execute_commands_interactively(char *cmd, size_t len,
 		if (username == NULL)
 		{
 			perror("Failed to get username");
+			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 		{
 			perror("Failed to get current directory");
+			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 
@@ -72,18 +73,20 @@ void execute_commands_interactively(char *cmd, size_t len,
 		}
 
 		read_command(&cmd, &len);
+		handle_comments(cmd);
 		if (_strlen(cmd) == 0) /* Add a check for NULL command */
 		{
 			continue; /* If NULL command, then continue to next iteration */
 		}
 		check_command_length(cmd);
-
-		if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
+		if (cmd[0] != '\0')
 		{
-			break;
+			if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
+			{
+				break;
+			}
+			handle_semicolon(cmd, argv, data);
 		}
-		insert_cmd(data, cmd);
-		execute_cmd(cmd, argv, data);
 	}
 	free(cmd);
 }

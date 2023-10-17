@@ -7,7 +7,7 @@ void execute_cd_command(char *args[])
 	if (args[1] == NULL)
 	{
 		error_msg = "cd: expected argument\n";
-		if (write(STDERR_FILENO, error_msg, strlen(error_msg)) == -1)
+		if (write(STDERR_FILENO, error_msg, _strlen(error_msg)) == -1)
 		{
 			perror("Write failed");
 			exit(EXIT_FAILURE);

@@ -43,3 +43,15 @@ char *_strcat(char *dest, const char *src)
 		;
 	return (save);
 }
+char *_strchr(const char *str, int c)
+{
+	while (*str != '\0')
+	{
+		if (*str == c)
+		{
+			return ((char *)str);
+		}
+		str++;
+	}
+	return (NULL);
+}

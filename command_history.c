@@ -9,7 +9,7 @@ void insert_cmd(shell_data *data, const char *cmd)
 		perror("Memory allocation failed");
 		exit(EXIT_FAILURE);
 	}
-	strcpy(newNode->cmd, cmd);
+	_strcpy(newNode->cmd, cmd);
 	newNode->next = data->head;
 	data->head = newNode;
 
@@ -44,13 +44,16 @@ void insert_cmd(shell_data *data, const char *cmd)
 
 void clear_history(shell_data *data)
 {
-	while (data->head != NULL)
-	{
-		Node *temp = data->head;
+	Node *current = data->head;
+	Node *next;
 
-		data->head = data->head->next;
-		free(temp);
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
 	}
+	data->head = NULL;
 }
 void write_history(shell_data *data)
 {
