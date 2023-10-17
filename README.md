@@ -4,6 +4,41 @@
 
 The shell program is a command-line interpreter that allows users to execute commands and manage a command history. This program is implemented in C and provides various functionalities like executing commands, changing directories, and maintaining a command history.
 
+### Authors
+
+Mohannad Abdulaziz and Sara Khalid Mustafa
+
+### Acknowledgements
+
+Julien Barbier - Project supervisor
+
+ALX Africa Software Engineering Program - Cohort 18
+
+------------------------------------------------------
+Usage
+-----
+
+```
+git clone https://github.com/Sarokhalid/simple_shell.git
+cd simple_shell
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+./hsh
+
+```
+
+Type commands and press Enter to execute. Use Ctrl-C or Ctrl-Z to handle signals.
+
+Examples
+--------
+
+```
+$ ./hsh
+$ ls
+file1 file2
+$ cat file1
+Hello World!
+```
+
 ### Code Structure:
 
 #### Description of each function in this code accourding to C files:
