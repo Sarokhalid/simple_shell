@@ -18,7 +18,6 @@ void read_command(char **cmd, size_t *len)
 		if (errno != EINVAL && isatty(STDIN_FILENO))
 		{
 			perror("\n");
-			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -56,14 +55,12 @@ void execute_commands_interactively(char *cmd, size_t len,
 		if (username == NULL)
 		{
 			perror("Failed to get username");
-			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 		{
 			perror("Failed to get current directory");
-			free(cmd);
 			exit(EXIT_FAILURE);
 		}
 
@@ -88,7 +85,6 @@ void execute_commands_interactively(char *cmd, size_t len,
 			handle_semicolon(cmd, argv, data);
 		}
 	}
-	free(cmd);
 }
 
 void print_error_message(char *argv[], char *args[],
