@@ -7,6 +7,7 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <limits.h>
@@ -70,8 +71,7 @@ void execute_command_in_path(char *args[],
 		char *error_message, int *length);
 void print_error_message(char *argv[], char *args[],
 		char *error_message, int length);
-void execute_commands_from_file(int argc, char *argv[],
-		char *cmd, size_t len);
+void execute_commands_from_file(int argc, char *argv[], shell_data data);
 void execute_commands_interactively(char *cmd, size_t len,
 		char *argv[], shell_data *data);
 void handle_semicolon(char *cmd, char *argv[], shell_data *data);

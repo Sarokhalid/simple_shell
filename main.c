@@ -19,7 +19,19 @@ int main(int argc, char *argv[])
 	if (argc > 1)
 	{
 		/* Non-interactive mode: Read commands from files or pipes */
-		execute_commands_from_file(argc, argv, cmd, len);
+		struct stat st;
+
+		if (stat(argv[1], &st) == 0 && S_ISREG(st.st_mode))
+		{
+			/* If argv[1] is a file, read commands from the file */
+			execute_commands_from_file(argc, argv, data);
+		}
+		else
+		{
+			/* If argv[1] is not a file, treat it as a command */
+			cmd = argv[1];
+			execute_cmd(cmd, argv, &data);
+		}
 	}
 	else
 	{
@@ -28,7 +40,6 @@ int main(int argc, char *argv[])
 	}
 
 	free_commands(&data);
-	free(cmd); /* free the memory allocated by getline() */
 	clear_history(&data);
 	return (0);
 }

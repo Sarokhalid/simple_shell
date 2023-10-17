@@ -119,6 +119,7 @@ void execute_commands_interactively(char *cmd, size_t len,
 		{
 			if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
 			{
+				free(cmd);
 				break;
 			}
 			handle_semicolon(cmd, argv, data);

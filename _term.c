@@ -30,6 +30,13 @@ int _isspace(char c)
 			c == '\v' || c == '\f' || c == '\r');
 }
 
+/**
+ * _dup2 - Duplicates a file descriptor.
+ *
+ * @oldfd: The original file descriptor.
+ * @newfd: The new file descriptor.
+ * Return: The new file descriptor on success, or -1 on error.
+ */
 int _dup2(int oldfd, int newfd)
 {
 	if (oldfd == newfd)
