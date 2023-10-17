@@ -1,4 +1,20 @@
 #include "shell.h"
+/**
+ * execute_commands_from_file - Executes commands from a file in the shell.
+ * @argc: The number of command line arguments.
+ * @argv: An array of strings containing command line arguments.
+ * @cmd: The buffer for storing commands read from the file.
+ * @len: The length of the buffer (unused).
+ * Description: This function reads commands from a filespecified
+ * by command line arguments and executes them in the shell.
+ * It opens each command file ,reads commands from it, inserts the commands
+ * into the shell_data struct using insert_cmd, and executes them
+ * using the execute_cmd function. After processing all commands
+ * the command file is closed, and the command history
+ * and allocated memory are cleared.
+ * The (void)len is used to explicitly indicate ,that the len parameter
+ * is unused to avoid a warning about an unused variable.
+ **/
 
 void execute_commands_from_file(int argc, char *argv[], char *cmd, size_t len)
 {

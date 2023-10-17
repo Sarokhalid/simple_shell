@@ -19,12 +19,27 @@
 
 extern char **environ;
 
+/**
+ * struct Node - Linked list node structure.
+ * @cmd: Array to store the command string.
+ * @next: Pointer to the next node in the linked list.
+ * Description: This structure represents a node in a linked list. It contains
+ * a fixed-size array `cmd` to store the command string and a
+ * pointer `next` to the next node in the linked list.
+ **/
 typedef struct Node
 {
 	char cmd[MAX_CMD_LEN];
 	struct Node *next;
 } Node;
 
+/**
+ * struct shell_data - Shell data structure.
+ * @head: Pointer to the head node of the linked list.
+ * Description: This structure represents the shell data. It contains a pointer
+ * `head` to the head node of a linked list. The linked list
+ * stores commands, where each node represents a command in the list
+ **/
 typedef struct shell_data
 {
 	Node *head;

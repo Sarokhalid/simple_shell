@@ -1,5 +1,9 @@
 #include "shell.h"
-
+/**
+ * _trim - Trims leading and trailing whitespace characters from a string
+ * @str: The string to be trimmed
+ * Return: A pointer to the trimmed string, or NULL if str is NULL
+ **/
 char *_trim(char *str)
 {
 	char *st = str;
@@ -15,6 +19,11 @@ char *_trim(char *str)
 	return (st);
 }
 
+/**
+ * _isspace - Checks if a character is a whitespace character.
+ * @c: The character to be checked.
+ * Return: 1 if the character is a whitespace character, 0 otherwise.
+ **/
 int _isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' ||

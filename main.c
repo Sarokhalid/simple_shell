@@ -1,4 +1,10 @@
 #include "shell.h"
+/**
+ * main - Entry point of the program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of strings containing the command-line arguments.
+ * Return: 0 on successful execution
+ **/
 
 int main(int argc, char *argv[])
 {

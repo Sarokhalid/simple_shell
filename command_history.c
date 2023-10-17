@@ -1,4 +1,14 @@
 #include "shell.h"
+/**
+ * insert_cmd - Inserts a command into the history list.
+ * @data: Pointer to the shell_data struct.
+ * @cmd: Command string to be inserteted
+ * Description: This function creates a new node, copies the command string
+ * into the node, and inserts the node at the beginning of the history list
+ * If the history list exceeds the maximum count the oldest commands are
+ * removed from the list.If memory allocation fails, an error message is
+ * printed,and the program terminates.
+ **/
 
 void insert_cmd(shell_data *data, const char *cmd)
 {
@@ -40,7 +50,12 @@ void insert_cmd(shell_data *data, const char *cmd)
 		}
 	}
 }
-
+/**
+ * clear_history - Frees the memory used by the history list.
+ * @data: Pointer to the shell_data struct.
+ * Description: This function frees the memory allocated for each node
+ * in the history list of the shell_data struct.
+ **/
 void clear_history(shell_data *data)
 {
 	Node *current = data->head;
@@ -54,6 +69,15 @@ void clear_history(shell_data *data)
 	}
 	data->head = NULL;
 }
+
+/**
+ * write_history - Writes the command history to a file.
+ * @data: Pointer to the shell_data struct.
+ * Description: This function opens a file,writes each command
+ * in the history list to the file, and closes the file.
+ * If any error occurs during the process, an error message
+ * is printed and the function returns.
+ **/
 void write_history(shell_data *data)
 {
 	Node *current;
@@ -97,7 +121,15 @@ void write_history(shell_data *data)
 		perror("Failed to close history file");
 	}
 }
-
+/**
+ * read_history - Reads command history from a file and
+ * inserts it into the shell_data struct.
+ * @data: Pointer to the shell_data struct
+ * Description: This function opens a history file,reads commands from it
+ * removes newline characters, and inserts the commands into the history list
+ * of the shell_data struct. If any error occurs during the process
+ * an error message is printed and the function returns.
+ **/
 void read_history(shell_data *data)
 {
 	char cmd[MAX_CMD_LEN];
@@ -130,6 +162,14 @@ void read_history(shell_data *data)
 	}
 }
 
+/**
+ * check_history_file - Checks if the history file exists
+ * and creates it if necessary.
+ * Description: This function checks if the history file exists
+ * If the file doesn't exist, it creates the file with read and write
+ * permissions for the user. If any error occurs during the process
+ * an error message is printed, and the program terminates.
+ **/
 void check_history_file(void)
 {
 	int fd;
