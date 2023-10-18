@@ -96,7 +96,7 @@ void execute_other_command(char *args[], char *argv[])
 			execute_command_in_path(args, error_message, &length);
 			/* If we still can't execute the command, print an error message */
 			print_error_message(argv, args, error_message, length);
-			exit(EXIT_FAILURE);
+			exit(127);
 		}
 	}
 	else
@@ -104,6 +104,15 @@ void execute_other_command(char *args[], char *argv[])
 		int status;
 
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status)) /* If the child process exited normally*/
+		{
+			int child_exit_status = WEXITSTATUS(status);
+
+			if (child_exit_status == 127)
+			{
+				exit(127); /* Exit the parent process with status 127 */
+			}
+		}
 	}
 }
 
