@@ -79,5 +79,11 @@ void handle_comments(char *cmd);
 char *_trim(char *str);
 int _isspace(char c);
 char *_strchr(const char *str, int c);
+int command_exists(char *cmd);
+char *_strdup(const char *src);
+void handle_fork_error(void);
+void handle_child_process(char *args[], char *argv[],
+		char *error_message, int length);
+void handle_parent_process(pid_t pid);
 
 #endif /* shell.h */

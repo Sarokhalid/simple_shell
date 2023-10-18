@@ -52,3 +52,65 @@ void execute_commands_from_file(int argc, char *argv[], shell_data data)
 		free_commands(&data);
 	}
 }
+
+/**
+ * handle_fork_error - Handles a fork error by printing an
+ * error message and exiting the program.
+ *
+ * Return: Does not return as the program is exited.
+ */
+void handle_fork_error(void)
+{
+	perror("Fork failed");
+	exit(EXIT_FAILURE);
+}
+
+/**
+ * handle_child_process - Handles the child process after a
+ * fork by executing the command.
+ * @args: The arguments for the command to execute.
+ * @argv: The arguments that were passed to the program.
+ * @error_message: The error message to print if the
+ * command cannot be executed.
+ * @length: The length of the error message.
+ *
+ * Return: void
+ */
+void handle_child_process(char *args[], char *argv[],
+		char *error_message, int length)
+{
+	/* Try to execute the command directly */
+	if (execve(args[0], args, environ) == -1)
+	{
+		execute_command_in_path(args, error_message, &length);
+		/* If we still can't execute the command, print an error message */
+		print_error_message(argv, args, error_message, length);
+		exit(127);
+	}
+}
+
+/**
+ * handle_parent_process - Handles the parent process after a
+ * fork by waiting for the child process to finish.
+ * @pid: The process ID of the child process.
+ *
+ * Return: void
+ */
+void handle_parent_process(pid_t pid)
+{
+	int status;
+
+	if (waitpid(pid, &status, 0) == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
+	if (WIFEXITED(status)) /* If the child process exited normally*/
+	{
+		int child_exit_status = WEXITSTATUS(status);
+
+		if (child_exit_status == 127)
+		{
+			exit(127); /* Exit the parent process with status 127 */
+		}
+	}
+}

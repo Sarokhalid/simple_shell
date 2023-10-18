@@ -79,43 +79,29 @@ void execute_command_in_path(char *args[], char *error_message, int *length)
  **/
 void execute_other_command(char *args[], char *argv[])
 {
-	pid_t pid = fork();
 	int length = 0;
 	char error_message[1024];
+	pid_t pid;
+
+	if (!command_exists(args[0]))
+	{
+		print_error_message(argv, args, error_message, length);
+		return;
+	}
+
+	pid = fork();
 
 	if (pid < 0)
 	{
-		perror("Fork failed");
-		exit(EXIT_FAILURE);
+		handle_fork_error();
 	}
 	else if (pid == 0)
 	{
-		/* Try to execute the command directly */
-		if (execve(args[0], args, environ) == -1)
-		{
-			execute_command_in_path(args, error_message, &length);
-			/* If we still can't execute the command, print an error message */
-			print_error_message(argv, args, error_message, length);
-			exit(127);
-		}
+		handle_child_process(args, argv, error_message, length);
 	}
 	else
 	{
-		int status;
-
-		if (waitpid(pid, &status, 0) == -1)
-		{
-			exit(EXIT_FAILURE);
-		}
-		if (WIFEXITED(status)) /* If the child process exited normally*/
-		{
-			int child_exit_status = WEXITSTATUS(status);
-
-			if (child_exit_status == 127)
-			{
-				exit(127); /* Exit the parent process with status 127 */
-			}
-		}
+		handle_parent_process(pid);
 	}
 }
 
