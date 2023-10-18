@@ -90,7 +90,6 @@ void execute_other_command(char *args[], char *argv[])
 	}
 	else if (pid == 0)
 	{
-		_dup2(STDOUT_FILENO, 1);
 		/* Try to execute the command directly */
 		if (execve(args[0], args, environ) == -1)
 		{

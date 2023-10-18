@@ -79,6 +79,5 @@ void handle_comments(char *cmd);
 char *_trim(char *str);
 int _isspace(char c);
 char *_strchr(const char *str, int c);
-int _dup2(int oldfd, int newfd);
 
 #endif /* shell.h */
