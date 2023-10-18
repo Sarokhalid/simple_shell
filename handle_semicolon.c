@@ -28,7 +28,6 @@ void handle_semicolon(char *cmd, char *argv[], shell_data *data)
 			trim_cmd = _trim(token_s);
 			if (trim_cmd[0] != '\0')
 			{
-				insert_cmd(data, trim_cmd);
 				execute_cmd(trim_cmd, argv, data);
 			}
 			token_s = token_e + 1;
@@ -38,7 +37,6 @@ void handle_semicolon(char *cmd, char *argv[], shell_data *data)
 	trim_cmd = _trim(token_s);
 	if (trim_cmd[0] != '\0')
 	{
-		insert_cmd(data, trim_cmd);
 		execute_cmd(trim_cmd, argv, data);
 	}
 }

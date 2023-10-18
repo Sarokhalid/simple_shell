@@ -36,6 +36,7 @@ void read_command(char **cmd, size_t *len)
 		}
 		else
 		{
+			free(*cmd);
 			exit(EXIT_SUCCESS);
 		}
 	}

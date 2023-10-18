@@ -125,6 +125,7 @@ void execute_cmd(const char *cmd, char *argv[], shell_data *data)
 	char *args[MAX_CMD_LEN] = {NULL};
 	char *token = strtok((char *)cmd, " ");
 	int i = 0;
+	(void)data;
 
 	while (token != NULL)
 	{
@@ -132,7 +133,6 @@ void execute_cmd(const char *cmd, char *argv[], shell_data *data)
 		token = strtok(NULL, " ");
 	}
 	args[i] = NULL;
-	write_history(data);
 
 	/* Add cd Command - Change Directories */
 	if (args[0])
