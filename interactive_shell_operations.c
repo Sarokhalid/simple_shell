@@ -15,7 +15,7 @@ void print_prompt(char *username, char *cwd)
 	write(STDOUT_FILENO, username, _strlen(username));
 	write(STDOUT_FILENO, "@", 1);
 	write(STDOUT_FILENO, cwd, _strlen(cwd));
-	write(STDOUT_FILENO, "($) ", 4);
+	write(STDOUT_FILENO, "$ ", 2);
 }
 
 /**
