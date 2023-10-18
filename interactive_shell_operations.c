@@ -117,10 +117,10 @@ void execute_commands_interactively(char *cmd, size_t len,
 		check_command_length(cmd);
 		if (cmd[0] != '\0')
 		{
-			if (_strncmp(cmd, "exit", 4) == 0)
+			if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
 			{
 				free(cmd);
-				exit(EXIT_SUCCESS);
+				break;
 			}
 			handle_semicolon(cmd, argv, data);
 		}
