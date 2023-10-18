@@ -89,7 +89,7 @@ void execute_commands_interactively(char *cmd, size_t len,
 	while (1)
 	{
 		char cwd[PATH_MAX];
-		char *username = getenv("USER");
+		char *username = _getenv("USER");
 
 		if (username == NULL)
 		{
