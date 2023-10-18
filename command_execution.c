@@ -103,7 +103,10 @@ void execute_other_command(char *args[], char *argv[])
 	{
 		int status;
 
-		waitpid(pid, &status, 0);
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			exit(EXIT_FAILURE);
+		}
 		if (WIFEXITED(status)) /* If the child process exited normally*/
 		{
 			int child_exit_status = WEXITSTATUS(status);
