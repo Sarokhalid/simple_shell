@@ -34,7 +34,6 @@ void execute_commands_from_file(int argc, char *argv[], shell_data data)
 			{
 				cmd[index] = '\0'; /* Null-terminate the string */
 				handle_comments(cmd);
-				insert_cmd(&data, cmd);
 				execute_cmd(cmd, argv, &data);
 				index = 0; /* Reset index for next command */
 			}
