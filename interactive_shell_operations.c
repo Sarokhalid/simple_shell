@@ -1,20 +1,13 @@
 #include "shell.h"
 /**
  * print_prompt - Prints the shell prompt.
- * @username: Pointer to the username string.
- * @cwd: Pointer to the current working directory string.
  * Description: This function prints the shell prompt to standard output
- * The prompt includes the username, the "@" character
  * the current working directory, and a "$ " symbol indicating
- * the prompt for a new command. The username and cwd parameters
  * are pointers to null-terminated strings.
  **/
 
-void print_prompt(char *username, char *cwd)
+void print_prompt(void)
 {
-	write(STDOUT_FILENO, username, _strlen(username));
-	write(STDOUT_FILENO, "@", 1);
-	write(STDOUT_FILENO, cwd, _strlen(cwd));
 	write(STDOUT_FILENO, "$ ", 2);
 }
 
@@ -88,24 +81,9 @@ void execute_commands_interactively(char *cmd, size_t len,
 	data->head = NULL;
 	while (1)
 	{
-		char cwd[PATH_MAX];
-		char *username = _getenv("USER");
-
-		if (username == NULL)
-		{
-			perror("Failed to get username");
-			exit(EXIT_FAILURE);
-		}
-
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
-		{
-			perror("Failed to get current directory");
-			exit(EXIT_FAILURE);
-		}
-
 		if (isatty(STDIN_FILENO))
 		{
-			print_prompt(username, cwd);
+			print_prompt();
 		}
 
 		read_command(&cmd, &len);

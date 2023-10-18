@@ -61,7 +61,7 @@ size_t _strcpy(char *dest, const char *src);
 void handle_signals(void);
 void check_history_file(void);
 void execute_cmd(const char *cmd, char *argv[], shell_data *data);
-void print_prompt(char *username, char *cwd);
+void print_prompt(void);
 void check_command_length(char *cmd);
 void read_command(char **cmd, size_t *len);
 char *_strcat(char *dest, const char *src);
