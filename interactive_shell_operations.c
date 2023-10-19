@@ -38,7 +38,6 @@ void read_command(char **cmd, size_t *len)
 		}
 		else  /* User pressed Ctrl+D */
 		{
-			write(STDOUT_FILENO, "\n", 1);
 			free(*cmd);
 			*cmd = NULL;
 			exit(EXIT_SUCCESS);
