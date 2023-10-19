@@ -88,6 +88,6 @@ void handle_parent_process(pid_t pid);
 void reset_args(char *args[], int *arg_count);
 void read_and_execute_commands(int fd, char *argv[], shell_data data);
 void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data);
-
+int is_whitespace(char c);
 
 #endif /* shell.h */

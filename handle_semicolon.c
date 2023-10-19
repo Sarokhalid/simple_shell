@@ -65,4 +65,3 @@ void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data)
 	args[arg_count] = NULL;
 	execute_cmd(args, argv, data);
 }
-

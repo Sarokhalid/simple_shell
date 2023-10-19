@@ -1,20 +1,42 @@
 #include "shell.h"
 /**
- * handle_comments - Removes comments from a command string.
- * @cmd: The command string to be processed.
- * Description: This function removes comments
- * from a command string by replacing the '#' character
- * and everything after it with a null terminator.
- * If no '#' character is found,the function does nothing.
+ * handle_comments - Handles comments in the given command string.
+ * @cmd: The command string to process.
+ * This function modifies the command string by removing any comments
+ * starting with a '#' symbol. If the '#' symbol is part of a word and
+ * not a comment, it is preserved.
  **/
-
 void handle_comments(char *cmd)
 {
-	char *cs = _strchr(cmd, '#');
+	char *cs = cmd;
 
-	if (cs != NULL)
+	while (*cs != '\0')
 	{
-		*cs = '\0';
+		if (*cs == '#')
+		{
+			if (cs != cmd && !is_whitespace(*(cs - 1)))
+			{
+				cs++;
+				continue;
+			}
+			else
+			{
+				*cs = '\0';
+				break;
+			}
+		}
+		cs++;
 	}
+}
+
+/**
+ * is_whitespace - Checks if the given character is a whitespace character.
+ * @c: The character to check.
+ * Return: 1 if the character is a whitespace character, 0 otherwise.
+ **/
+
+int is_whitespace(char c)
+{
+	return (c == ' ' || c == '\t');
 }
 
