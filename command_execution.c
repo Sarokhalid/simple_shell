@@ -48,29 +48,9 @@ void execute_command_in_path(char *args[], char *error_message, int *length)
 	char *path = _getenv("PATH");
 	char *dir = strtok(path, ":");
 	char exec_path[MAX_CMD_LEN];
-	int i;
 
 	(void)error_message;
 	(void)length;
-	if (_strcmp(args[0], "env") == 0)
-	{
-		if (args[1] != NULL && _strcmp(args[1], "-i") == 0)
-		{
-			/**Case: Remove all environment variables and execute env**/
-			for (i = 0; environ[i] != NULL; i++)
-			{
-				environ[i] = NULL;
-			}
-		}
-		execve("/usr/bin/env", args, environ);
-		return;
-	}
-	/**Case: Execute env**/
-	if (strcmp(args[0], "env") == 0)
-	{
-		execve("/usr/bin/env", args, environ);
-		return;
-	}
 	while (dir != NULL)
 	{
 		_strcpy(exec_path, dir);
