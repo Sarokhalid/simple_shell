@@ -28,7 +28,7 @@ void handle_semicolon(char *cmd, char *argv[], shell_data *data)
 			trim_cmd = _trim(token_s);
 			if (trim_cmd[0] != '\0')
 			{
-				execute_cmd(trim_cmd, argv, data);
+				split_and_execute_cmd(trim_cmd, argv, data);
 			}
 			token_s = token_e + 1;
 		}
@@ -37,6 +37,32 @@ void handle_semicolon(char *cmd, char *argv[], shell_data *data)
 	trim_cmd = _trim(token_s);
 	if (trim_cmd[0] != '\0')
 	{
-		execute_cmd(trim_cmd, argv, data);
+		split_and_execute_cmd(trim_cmd, argv, data);
 	}
 }
+
+/**
+ * split_and_execute_cmd - Splits a command into arguments and executes it.
+ * @trim_cmd: The command to split and execute.
+ * @argv: The arguments that were passed to the program.
+ * @data: The shell data structure.
+ *
+ * Return: void
+ */
+void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data)
+{
+	char *args[MAX_CMD_LEN] = {NULL};
+	int arg_count = 0;
+	char *token;
+
+	/* Split trim_cmd into arguments */
+	token = strtok(trim_cmd, " ");
+	while (token != NULL)
+	{
+		args[arg_count++] = token;
+		token = strtok(NULL, " ");
+	}
+	args[arg_count] = NULL;
+	execute_cmd(args, argv, data);
+}
+

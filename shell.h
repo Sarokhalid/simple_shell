@@ -60,7 +60,7 @@ char *_getenv(const char *name);
 size_t _strcpy(char *dest, const char *src);
 void handle_signals(void);
 void check_history_file(void);
-void execute_cmd(const char *cmd, char *argv[], shell_data *data);
+void execute_cmd(char **cmd, char *argv[], shell_data *data);
 void print_prompt(void);
 void check_command_length(char *cmd);
 void read_command(char **cmd, size_t *len);
@@ -85,5 +85,9 @@ void handle_fork_error(void);
 void handle_child_process(char *args[], char *argv[],
 		char *error_message, int length);
 void handle_parent_process(pid_t pid);
+void reset_args(char *args[], int *arg_count);
+void read_and_execute_commands(int fd, char *argv[], shell_data data);
+void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data);
+
 
 #endif /* shell.h */

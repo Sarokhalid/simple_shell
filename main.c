@@ -29,8 +29,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			/* If argv[1] is not a file, treat it as a command */
-			cmd = argv[1];
-			execute_cmd(cmd, argv, &data);
+			execute_cmd(argv + 1, argv, &data);
 		}
 	}
 	else

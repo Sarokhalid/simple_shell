@@ -118,17 +118,16 @@ void execute_other_command(char *args[], char *argv[])
  * Before executing the command, the command history is written
  * to the history file.
  **/
-void execute_cmd(const char *cmd, char *argv[], shell_data *data)
+void execute_cmd(char **cmd, char *argv[], shell_data *data)
 {
 	char *args[MAX_CMD_LEN] = {NULL};
-	char *token = strtok((char *)cmd, " ");
 	int i = 0;
 	(void)data;
 
-	while (token != NULL)
+	while (cmd[i] != NULL)
 	{
-		args[i++] = token;
-		token = strtok(NULL, " ");
+		args[i] = cmd[i];
+		i++;
 	}
 	args[i] = NULL;
 

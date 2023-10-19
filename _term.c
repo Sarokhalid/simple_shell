@@ -93,3 +93,24 @@ char *_strdup(const char *src)
 	*p = '\0';
 	return (str);
 }
+
+/**
+ * reset_args - Resets the arguments array and argument
+ * count for the next command.
+ * @args: The arguments array to reset.
+ * @arg_count: The argument count to reset.
+ *
+ * Return: void
+ */
+void reset_args(char *args[], int *arg_count)
+{
+	int j;
+
+	*arg_count = 0; /* Reset argument count for next command */
+
+	/* Reset arguments array for next command */
+	for (j = 0; j < MAX_CMD_LEN; j++)
+	{
+		args[j] = NULL;
+	}
+}
