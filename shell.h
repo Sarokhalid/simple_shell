@@ -78,7 +78,7 @@ void handle_semicolon(char *cmd, char *argv[], shell_data *data);
 void handle_comments(char *cmd);
 char *_trim(char *str);
 int _isspace(char c);
-char *_strchr(const char *str, int c);
+/**char *_strchr(const char *str, int c);**/
 int command_exists(char *cmd);
 char *_strdup(const char *src);
 void handle_fork_error(void);
@@ -89,5 +89,6 @@ void reset_args(char *args[], int *arg_count);
 void read_and_execute_commands(int fd, char *argv[], shell_data data);
 void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data);
 int is_whitespace(char c);
-
+int _strcmp(const char *s1, const char *s2);
+int _tolower(int c);
 #endif /* shell.h */
