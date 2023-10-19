@@ -29,17 +29,15 @@ void read_command(char **cmd, size_t *len)
 	read = getline(cmd, len, stdin);
 	if (read == -1)
 	{
-		if (errno == 0)  /* EOF was encountered */
-		{
-			printf("\n");
-			free(*cmd);
-			exit(EXIT_SUCCESS);
-		}
-		else  /* An error occurred */
+		if (errno != EINVAL && isatty(STDIN_FILENO))
 		{
 			perror("\n");
-			free(*cmd);
 			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			free(*cmd);
+			exit(EXIT_SUCCESS);
 		}
 	}
 
