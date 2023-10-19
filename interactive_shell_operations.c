@@ -29,14 +29,18 @@ void read_command(char **cmd, size_t *len)
 	read = getline(cmd, len, stdin);
 	if (read == -1)
 	{
-		if (errno != EINVAL && isatty(STDIN_FILENO))
+		if (errno == EINVAL)  /* Some other error occurred */
 		{
-			perror("\n");
+			write(STDOUT_FILENO, "\n", 1);
+			free(*cmd);
+			*cmd = NULL;
 			exit(EXIT_FAILURE);
 		}
-		else
+		else  /* User pressed Ctrl+D */
 		{
+			write(STDOUT_FILENO, "\n", 1);
 			free(*cmd);
+			*cmd = NULL;
 			exit(EXIT_SUCCESS);
 		}
 	}
