@@ -138,6 +138,10 @@ void execute_cmd(char **cmd, char *argv[], shell_data *data)
 		{
 			execute_cd_command(args);
 		}
+		else if(_strncmp(args[0], "fail", 4) == 0)
+		{
+			exit(1);
+		}
 		else
 		{
 			execute_other_command(args, argv);
