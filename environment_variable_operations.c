@@ -23,3 +23,23 @@ char *_getenv(const char *name, char **env)
 
 	return (NULL);
 }
+
+/**
+ * print_env - Prints the environment variables.
+ * @env: Null-terminated array of strings representing the environment.
+ *
+ * Description: This function iterates over each string in the 'env' array,
+ * which represents an environment variable, and writes it to stdout. Each
+ * environment variable is printed on a new line.
+ */
+void print_env(char **env)
+{
+	int i;
+
+	for (i = 0; env[i] != NULL; i++)
+	{
+		/* Write the environment variable to stdout */
+		write(STDOUT_FILENO, env[i], _strlen(env[i]));
+		write(STDOUT_FILENO, "\n", 1);
+	}
+}

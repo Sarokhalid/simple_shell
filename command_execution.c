@@ -134,12 +134,15 @@ void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env)
 	}
 	args[i] = NULL;
 
-	/* Add cd Command - Change Directories */
 	if (args[0])
 	{
 		if (_strncmp(args[0], "cd", 2) == 0)
 		{
-			execute_cd_command(args);
+			execute_cd_command(args); /* Add cd Command - Change Directories */
+		}
+		else if (_strncmp(args[0], "env", 3) == 0)
+		{
+			print_env(env); /* Add env Command - Print Environment */
 		}
 		else
 		{

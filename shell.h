@@ -63,6 +63,7 @@ void handle_sigtstp(int signum);
 
 /* Environment variable functions */
 char *_getenv(const char *name, char **env);
+void print_env(char **env);
 
 /* Command execution functions */
 void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env);
