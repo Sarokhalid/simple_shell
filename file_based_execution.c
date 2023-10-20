@@ -62,6 +62,14 @@ void read_and_execute_commands(int fd, char *argv[],
 		{
 			cmd[index] = '\0'; /* Null-terminate the string */
 			handle_comments(cmd);
+			if (_strlen(cmd) == 0) /* Add a check for NULL command */
+			{
+				continue; /* If NULL command, then continue to next iteration */
+			}
+			if (_strncmp(cmd, "exit", 4) == 0 || _strncmp(cmd, "quit", 4) == 0)
+			{
+				break;
+			}
 			handle_semicolon(cmd, argv, &data, env);
 			index = 0; /* Reset index for next command */
 		}
