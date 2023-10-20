@@ -76,7 +76,7 @@ char *_strcat(char *dest, const char *src)
  * @c: The character to locate.
  * Return: A pointer to the first occurrence of the character in the string
  * or NULL if the character is not found.
- **
+ */
 char *_strchr(const char *str, int c)
 {
 	while (*str != '\0')
@@ -88,5 +88,5 @@ char *_strchr(const char *str, int c)
 		str++;
 	}
 	return (NULL);
-}**/
+}
 
