@@ -18,7 +18,6 @@
 #define HISTORY_COUNT 10
 #define HISTORY_FILE "history.txt"
 
-extern char **environ;
 
 /**
  * struct Node - Linked list node structure.
@@ -46,47 +45,76 @@ typedef struct shell_data
 	Node *head;
 } shell_data;
 
-
+/* String manipulation functions */
 size_t _strlen(const char *s);
+size_t _strcpy(char *dest, const char *src);
+char *_strcat(char *dest, const char *src);
 int _strncmp(const char *s, const char *ss, size_t n);
+char *_strchr(const char *str, int c);
+char *_strdup(const char *src);
+char *_trim(char *str);
+int _isspace(char c);
+int is_whitespace(char c);
+
+/* Signal handling functions */
+void handle_signals(void);
 void handle_sigint(int signum);
 void handle_sigtstp(int signum);
+
+/* Environment variable functions */
+char *_getenv(const char *name, char **env);
+
+/* Command execution functions */
+void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env);
+void execute_cd_command(char *args[]);
+void execute_other_command(char *args[], char *argv[], char **env);
+void execute_command_in_path(char *args[], char *error_message,
+		int *length, char **env);
+
+/* Command existence check function */
+int command_exists(char *cmd, char **env);
+
+/* Process handling functions */
+void handle_fork_error(void);
+void handle_child_process(char *args[], char *argv[],
+		char *error_message, int length, char **env);
+void handle_parent_process(pid_t pid);
+
+/* Error message printing function */
+void print_error_message(char *argv[], char *args[],
+		char *error_message, int length);
+
+/* Command reading functions */
+void read_command(char **cmd, size_t *len);
+void read_and_execute_commands(int fd, char *argv[],
+		shell_data data, char **env);
+
+/* Command parsing functions */
+void check_command_length(char *cmd);
+void handle_comments(char *cmd);
+void handle_semicolon(char *cmd, char *argv[],
+		shell_data *data, char **env);
+void split_and_execute_cmd(char *trim_cmd, char *argv[],
+		shell_data *data, char **env);
+void reset_args(char *args[], int *arg_count);
+
+/* Command history functions */
+void check_history_file(void);
 void insert_cmd(shell_data *data, const char *cmd);
 void clear_history(shell_data *data);
 void write_history(shell_data *data);
 void read_history(shell_data *data);
-void execute_cd_command(char *args[]);
-char *_getenv(const char *name);
-size_t _strcpy(char *dest, const char *src);
-void handle_signals(void);
-void check_history_file(void);
-void execute_cmd(char **cmd, char *argv[], shell_data *data);
-void print_prompt(void);
-void check_command_length(char *cmd);
-void read_command(char **cmd, size_t *len);
-char *_strcat(char *dest, const char *src);
-void execute_other_command(char *args[], char *argv[]);
-void free_commands(shell_data *data);
-void execute_command_in_path(char *args[],
-		char *error_message, int *length);
-void print_error_message(char *argv[], char *args[],
-		char *error_message, int length);
-void execute_commands_from_file(int argc, char *argv[], shell_data data);
+
+/* Command mode functions */
+void execute_commands_from_file(int argc, char *argv[],
+		shell_data data, char **env);
 void execute_commands_interactively(char *cmd, size_t len,
-		char *argv[], shell_data *data);
-void handle_semicolon(char *cmd, char *argv[], shell_data *data);
-void handle_comments(char *cmd);
-char *_trim(char *str);
-int _isspace(char c);
-/**char *_strchr(const char *str, int c);**/
-int command_exists(char *cmd);
-char *_strdup(const char *src);
-void handle_fork_error(void);
-void handle_child_process(char *args[], char *argv[],
-		char *error_message, int length);
-void handle_parent_process(pid_t pid);
-void reset_args(char *args[], int *arg_count);
-void read_and_execute_commands(int fd, char *argv[], shell_data data);
-void split_and_execute_cmd(char *trim_cmd, char *argv[], shell_data *data);
-int is_whitespace(char c);
+		char *argv[], shell_data *data, char **env);
+
+/* Prompt printing function */
+void print_prompt(void);
+
+/* Command freeing function */
+void free_commands(shell_data *data);
+
 #endif /** shell.h **/

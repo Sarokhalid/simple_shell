@@ -74,13 +74,14 @@ void check_command_length(char *cmd)
  * @len: Length of the command buffer.
  * @argv: Array of command-line arguments.
  * @data: Pointer to shell data structure.
+ * @env: The environment variables array
  * Description: This function executes commands interactively in a shell. It
  * repeatedly prompts for input, reads the command, handles comments
  * checks for the exit or quit commands, and handles commands separated
  * by semicolons.
  **/
 void execute_commands_interactively(char *cmd, size_t len,
-		char *argv[], shell_data *data)
+		char *argv[], shell_data *data, char **env)
 {
 	data->head = NULL;
 	while (1)
@@ -104,7 +105,7 @@ void execute_commands_interactively(char *cmd, size_t len,
 				free(cmd);
 				break;
 			}
-			handle_semicolon(cmd, argv, data);
+			handle_semicolon(cmd, argv, data, env);
 		}
 	}
 }

@@ -34,10 +34,11 @@ int _isspace(char c)
  * command_exists - Checks if a command exists in the PATH
  * or is a full path to an executable.
  * @cmd: The command to check.
+ * @env: The environment variables array
  *
  * Return: 1 if the command exists, 0 otherwise.
  */
-int command_exists(char *cmd)
+int command_exists(char *cmd, char **env)
 {
 	char *path;
 	char *path_copy;
@@ -51,7 +52,7 @@ int command_exists(char *cmd)
 	}
 
 	/* If not, check if cmd exists in the PATH */
-	path = _getenv("PATH");
+	path = _getenv("PATH", env);
 	path_copy = _strdup(path);  /* Make a copy of PATH */
 	dir = strtok(path_copy, ":");
 

@@ -37,15 +37,17 @@ void execute_cd_command(char *args[])
  * @args: Array of command arguments.
  * @error_message: Error message buffer.
  * @length: Pointer to the length of the error message.
+ * @env: The environment variables array
  * Description: This function searches for the command specified by
  * the first argument in the args array within the directories listed in the
  * system's PATH environment variable. If the command is found and
  * is executable it is executed using the execve function.
  * The error_message and length parameters are not used in this implementation.
  **/
-void execute_command_in_path(char *args[], char *error_message, int *length)
+void execute_command_in_path(char *args[], char *error_message,
+		int *length, char **env)
 {
-	char *path = _getenv("PATH");
+	char *path = _getenv("PATH", env);
 	char *dir = strtok(path, ":");
 	char exec_path[MAX_CMD_LEN];
 
@@ -58,7 +60,7 @@ void execute_command_in_path(char *args[], char *error_message, int *length)
 		_strcat(exec_path, args[0]);
 		if (access(exec_path, X_OK) == 0)
 		{
-			execve(exec_path, args, environ);
+			execve(exec_path, args, env);
 			break;
 		}
 		dir = strtok(NULL, ":");
@@ -69,6 +71,7 @@ void execute_command_in_path(char *args[], char *error_message, int *length)
  * execute_other_command - Executes a command not handled by built-in commands.
  * @args: Array of command arguments.
  * @argv: Array of command-line arguments.
+ * @env: The environment variables array
  * Description: This function forks a new process and attempts to execute the
  * command specified by the first argument in the args array.
  * If the execution fails, it tries to find the command in the system's PATH
@@ -76,13 +79,13 @@ void execute_command_in_path(char *args[], char *error_message, int *length)
  * The parent process waits for the childm process
  * to complete before continuing.
  **/
-void execute_other_command(char *args[], char *argv[])
+void execute_other_command(char *args[], char *argv[], char **env)
 {
 	int length = 0;
 	char error_message[1024];
 	pid_t pid;
 
-	if (!command_exists(args[0]))
+	if (!command_exists(args[0], env))
 	{
 		print_error_message(argv, args, error_message, length);
 		return;
@@ -96,7 +99,7 @@ void execute_other_command(char *args[], char *argv[])
 	}
 	else if (pid == 0)
 	{
-		handle_child_process(args, argv, error_message, length);
+		handle_child_process(args, argv, error_message, length, env);
 	}
 	else
 	{
@@ -109,6 +112,7 @@ void execute_other_command(char *args[], char *argv[])
  * @cmd: Command string to be executed.
  * @argv: Array of command-line arguments.
  * @data: Pointer to the shell_data struct.
+ * @env: The environment variables array
  * Description: This function tokenizes the command string into
  * individual arguments and executes the appropriate command based
  * on the first argument.
@@ -117,7 +121,7 @@ void execute_other_command(char *args[], char *argv[])
  * Before executing the command, the command history is written
  * to the history file.
  **/
-void execute_cmd(char **cmd, char *argv[], shell_data *data)
+void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env)
 {
 	char *args[MAX_CMD_LEN] = {NULL};
 	int i = 0;
@@ -139,7 +143,7 @@ void execute_cmd(char **cmd, char *argv[], shell_data *data)
 		}
 		else
 		{
-			execute_other_command(args, argv);
+			execute_other_command(args, argv, env);
 		}
 	}
 }

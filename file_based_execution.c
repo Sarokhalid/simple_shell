@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * execute_commands_from_file - reads and executes commands
  * from one or more input files specified in the command
@@ -7,9 +8,10 @@
  * @argc:   The number of command line arguments.
  * @argv:   An array of strings containing the command line arguments.
  * @data:   A data structure to manage shell-related information.
+ * @env: The environment variables array
  */
-
-void execute_commands_from_file(int argc, char *argv[], shell_data data)
+void execute_commands_from_file(int argc, char *argv[],
+		shell_data data, char **env)
 {
 	int i;
 	int fd;
@@ -25,7 +27,7 @@ void execute_commands_from_file(int argc, char *argv[], shell_data data)
 			exit(EXIT_FAILURE);
 		}
 
-		read_and_execute_commands(fd, argv, data);
+		read_and_execute_commands(fd, argv, data, env);
 		/* Close the command file */
 		if (close(fd) == -1)
 		{
@@ -42,10 +44,12 @@ void execute_commands_from_file(int argc, char *argv[], shell_data data)
  * @fd: The file descriptor of the command file.
  * @argv: The arguments that were passed to the program.
  * @data: The shell data structure.
+ * @env: The environment variables array
  *
  * Return: void
  */
-void read_and_execute_commands(int fd, char *argv[], shell_data data)
+void read_and_execute_commands(int fd, char *argv[],
+		shell_data data, char **env)
 {
 	ssize_t nread;
 	char cmd[MAX_CMD_LEN];
@@ -58,7 +62,7 @@ void read_and_execute_commands(int fd, char *argv[], shell_data data)
 		{
 			cmd[index] = '\0'; /* Null-terminate the string */
 			handle_comments(cmd);
-			handle_semicolon(cmd, argv, &data);
+			handle_semicolon(cmd, argv, &data, env);
 			index = 0; /* Reset index for next command */
 		}
 		else
@@ -88,16 +92,17 @@ void handle_fork_error(void)
  * @error_message: The error message to print if the
  * command cannot be executed.
  * @length: The length of the error message.
+ * @env: The environment variables array
  *
  * Return: void
  */
 void handle_child_process(char *args[], char *argv[],
-		char *error_message, int length)
+		char *error_message, int length, char **env)
 {
 	/* Try to execute the command directly */
-	if (execve(args[0], args, environ) == -1)
+	if (execve(args[0], args, env) == -1)
 	{
-		execute_command_in_path(args, error_message, &length);
+		execute_command_in_path(args, error_message, &length, env);
 		/* If we still can't execute the command, print an error message */
 		print_error_message(argv, args, error_message, length);
 		exit(127);
