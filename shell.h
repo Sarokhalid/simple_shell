@@ -67,7 +67,7 @@ void print_env(char **env);
 
 /* Command execution functions */
 void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env);
-void execute_cd_command(char *args[]);
+void execute_cd_command(char *args[], char **env);
 void execute_other_command(char *args[], char *argv[], char **env);
 void execute_command_in_path(char *args[], char *error_message,
 		int *length, char **env);
@@ -117,5 +117,8 @@ void print_prompt(void);
 
 /* Command freeing function */
 void free_commands(shell_data *data);
+void print_string(const char *string);
+void _putchar(int c);
+int _strcmp(const char *s1, const char *s2);
 
 #endif /** shell.h **/

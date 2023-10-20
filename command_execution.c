@@ -2,6 +2,7 @@
 /**
  * execute_cd_command - executes the "cd" command to change directories.
  * @args: array of command arguments.
+ * @env: array of character
  * Description: This function handles the "cd" command, which is used to change
  * directories. If no argument is provided, an error message is printed
  * to standard error. If an argument is provided, the chdir function is called
@@ -9,7 +10,7 @@
  * to standard error.
  **/
 
-void execute_cd_command(char *args[])
+void execute_cd_command(char *args[], char **env)
 {
 	const char *error_msg;
 
@@ -22,14 +23,34 @@ void execute_cd_command(char *args[])
 			exit(EXIT_FAILURE);
 		}
 	}
+	else if (_strcmp(args[1], "-") == 0)
+	{
+		char *oldpwd = _getenv("OLDPWD", env);
+
+		if (oldpwd == NULL)
+		{
+			error_msg = "cd: OLDPWD not set\n";
+			if (write(STDERR_FILENO, error_msg, _strlen(error_msg)) == -1)
+			{
+				perror("Write failed");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			if (chdir(oldpwd) != 0)
+				perror("cd");
+			else
+				print_string(oldpwd);
+		}
+	}
 	else
 	{
 		if (chdir(args[1]) != 0)
-		{
 			perror("cd");
-		}
 	}
 }
+
 
 /**
  * execute_command_in_path - Executes a command by
@@ -138,7 +159,7 @@ void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env)
 	{
 		if (_strncmp(args[0], "cd", 2) == 0)
 		{
-			execute_cd_command(args); /* Add cd Command - Change Directories */
+			execute_cd_command(args, env); /* Add cd Command - Change Directories */
 		}
 		else if (_strncmp(args[0], "env", 3) == 0)
 		{
