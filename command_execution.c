@@ -85,6 +85,7 @@ void execute_other_command(char *args[], char *argv[])
 	if (!command_exists(args[0]))
 	{
 		print_error_message(argv, args, error_message, length);
+		exit(127);
 		return;
 	}
 
