@@ -129,19 +129,12 @@ void execute_other_command(char *args[], char *argv[], char **env)
 }
 
 /**
- * execute_cmd - Executes a command.
- * @cmd: Command string to be executed.
- * @argv: Array of command-line arguments.
- * @data: Pointer to the shell_data struct.
- * @env: The environment variables array
- * Description: This function tokenizes the command string into
- * individual arguments and executes the appropriate command based
- * on the first argument.
- * If the command is "cd", the execute_cd_command function is called.
- * Otherwise, the execute_other_command function is called.
- * Before executing the command, the command history is written
- * to the history file.
- **/
+ * execute_cmd - Executes a command
+ * @cmd: The command to be executed
+ * @argv: The arguments for the command
+ * @data: A pointer to the shell data
+ * @env: A pointer to the environment variables array
+ */
 void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env)
 {
 	char *args[MAX_CMD_LEN] = {NULL};
@@ -159,11 +152,19 @@ void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env)
 	{
 		if (_strncmp(args[0], "cd", 2) == 0)
 		{
-			execute_cd_command(args, env); /* Add cd Command - Change Directories */
+			execute_cd(args, env);
 		}
 		else if (_strncmp(args[0], "env", 3) == 0)
 		{
-			print_env(env); /* Add env Command - Print Environment */
+			execute_env(args, env);
+		}
+		else if (_strncmp(args[0], "setenv", 6) == 0)
+		{
+			execute_setenv(args, env);
+		}
+		else if (_strncmp(args[0], "unsetenv", 8) == 0)
+		{
+			execute_unsetenv(args, env);
 		}
 		else
 		{

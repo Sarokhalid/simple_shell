@@ -64,6 +64,8 @@ void handle_sigtstp(int signum);
 /* Environment variable functions */
 char *_getenv(const char *name, char **env);
 void print_env(char **env);
+void set_env_var(char *name, char *value, char ***env);
+void unset_env_var(char *name, char ***env);
 
 /* Command execution functions */
 void execute_cmd(char **cmd, char *argv[], shell_data *data, char **env);
@@ -71,6 +73,10 @@ void execute_cd_command(char *args[], char **env);
 void execute_other_command(char *args[], char *argv[], char **env);
 void execute_command_in_path(char *args[], char *error_message,
 		int *length, char **env);
+void execute_cd(char **args, char **env);
+void execute_env(char **args, char **env);
+void execute_setenv(char **args, char **env);
+void execute_unsetenv(char **args, char **env);
 
 /* Command existence check function */
 int command_exists(char *cmd, char **env);

@@ -43,3 +43,103 @@ void print_env(char **env)
 		write(STDOUT_FILENO, "\n", 1);
 	}
 }
+
+/**
+ * set_env_var - Sets an environment variable
+ * @name: The name of the environment variable
+ * @value: The value to be set for the environment variable
+ * @env: A pointer to the environment variables array
+ *
+ * Return: Nothing
+ */
+void set_env_var(char *name, char *value, char ***env)
+{
+	int i;
+	char *new_env_var;
+
+	/* Check if environment variable already exists */
+	for (i = 0; (*env)[i] != NULL; i++)
+	{
+		if (_strncmp(name, (*env)[i], _strlen(name)) == 0
+				&& (*env)[i][_strlen(name)] == '=')
+		{
+			/* If it exists, modify the value */
+			new_env_var = malloc(_strlen(name) + _strlen(value) + 2);
+			if (new_env_var == NULL)
+			{
+				write(STDERR_FILENO, "Failed to allocate memory\n", 26);
+				return;
+			}
+			_strcpy(new_env_var, name);
+			_strcat(new_env_var, "=");
+			_strcat(new_env_var, value);
+			free((*env)[i]);
+			(*env)[i] = new_env_var;
+			return;
+		}
+	}
+	/* If it doesn't exist, create a new environment variable */
+	new_env_var = malloc(_strlen(name) + _strlen(value) + 2);
+	if (new_env_var == NULL)
+	{
+		write(STDERR_FILENO, "Failed to allocate memory\n", 26);
+		return;
+	}
+	_strcpy(new_env_var, name);
+	_strcat(new_env_var, "=");
+	_strcat(new_env_var, value);
+
+	/* Add the new environment variable to the env array */
+	(*env)[i] = new_env_var;
+	(*env)[i + 1] = NULL;
+}
+
+/**
+ * unset_env_var - Unsets an environment variable
+ * @name: The name of the environment variable to be unset
+ * @env: A pointer to the environment variables array
+ *
+ * Return: Nothing
+ */
+void unset_env_var(char *name, char ***env)
+{
+	int i;
+	int found = 0; /* Add a flag to check if the variable was found */
+
+	/* Find the environment variable */
+	for (i = 0; (*env)[i] != NULL; i++)
+	{
+		if (_strncmp(name, (*env)[i], _strlen(name)) == 0
+				&& (*env)[i][_strlen(name)] == '=')
+		{
+			free((*env)[i]);
+
+			/* Shift all elements down one spot */
+			while ((*env)[i] != NULL)
+			{
+				(*env)[i] = (*env)[i + 1];
+				i++;
+			}
+			(*env)[i] = NULL;
+
+			found = 1; /* Set the flag to true */
+			break;
+		}
+	}
+	/* If the variable was not found, print an error message */
+	if (!found)
+	{
+		char *error_message = malloc(_strlen(name) + 42);
+
+		if (error_message == NULL)
+		{
+			write(STDERR_FILENO, "Failed to allocate memory\n", 26);
+			return;
+		}
+		_strcpy(error_message, "Error: Environment variable '");
+		_strcat(error_message, name);
+		_strcat(error_message, "' not found\n");
+		write(STDERR_FILENO, error_message, _strlen(error_message));
+		free(error_message);
+	}
+}
